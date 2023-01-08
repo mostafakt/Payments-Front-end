@@ -1,13 +1,17 @@
 import React from "react";
-import logo from "./logo.svg";
+import { BrowserRouter } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import Routing from "./routing/Routing";
 
 function App() {
-  return <div className="App">
-
-
-    
-  </div>;
+  return (
+    <div className="App">
+      <BrowserRouter>
+        <Routing />
+      </BrowserRogit uter>
+    </div>
+  );
 }
 
 export default App;
