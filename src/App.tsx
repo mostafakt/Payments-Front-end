@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routing />
-      </BrowserRogit uter>
+      </BrowserRouter>
     </div>
   );
 }
