@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import { Container } from "./Login.style";
+import axios from "axios";
 
 const Login = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const submit = () => {};
+  axios.post("http://127.0.0.1:8000/api-token-auth/", {
+    username: userName,
+    password: password,
+  });
+
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
@@ -11,9 +20,12 @@ const Login = () => {
           <div className="form-group mt-3">
             <label>Email address</label>
             <input
-              type="email"
               className="form-control mt-1"
               placeholder="Enter email"
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+              value={userName}
             />
           </div>
           <div className="form-group mt-3">
@@ -22,10 +34,14 @@ const Login = () => {
               type="password"
               className="form-control mt-1"
               placeholder="Enter password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              value={password}
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary">
+            <button type="submit" className="btn btn-primary" onClick={submit}>
               Submit
             </button>
           </div>
