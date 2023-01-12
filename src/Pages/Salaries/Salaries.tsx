@@ -32,7 +32,7 @@ const Salaries = () => {
     name: "",
     paidAmount: 0,
     date: "2023-01-01",
-    salary: 0,
+    salary: "1",
   });
   const [isSalatyOpen, setIsSalaryOpen] = useState(false);
   const [salary, setSalary] = useState({
@@ -83,6 +83,10 @@ const Salaries = () => {
   useEffect(() => {
     fetch();
   }, []);
+  useEffect(() => {
+    console.log(paid);
+    // console.log(salaries);
+  }, [paid]);
 
   return (
     <>
@@ -101,7 +105,9 @@ const Salaries = () => {
               <Input>{t.currsalaryAmount}</Input>
               <Add
                 onClick={() => {
-                  setPaid({ ...paid, salary: t.id });
+                  setPaid({ ...paid, salary: String(t.id) });
+                  console.log(salaries);
+
                   setIsPaidOpen(true);
                 }}
                 src="https://www.svgrepo.com/download/170952/add-button.svg"
