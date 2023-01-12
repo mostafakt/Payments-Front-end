@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
+  position: relative;
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -99,4 +100,17 @@ const Add = styled.img`
   width: 40px;
   height: 40px;
 `;
-export { Container, SalaryContainer, Input, Add, PaidContainer };
+const ModalContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+export {
+  Container,
+  SalaryContainer,
+  Input,
+  Add,
+  PaidContainer,
+  ModalContainer,
+};
