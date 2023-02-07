@@ -1,7 +1,9 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { TabContainer, Modal } from "react-bootstrap";
-import Button from "react-bootstrap/esm/Button";
+import Button from "@mui/material/Button";
+// import Button  from "react-bootstrap/esm/Button";
+import { useQuery } from "react-query";
 import { gitHeader } from "../Login/Login";
 import {
   Input,
@@ -41,14 +43,19 @@ const Salaries = () => {
     currsalaryAmount: 0,
     date: "2023-01-11",
   });
+  const { data, isLoading, refetch } = useQuery("fetch", () =>
+    axios.get("http://127.0.0.1:8000/salary/", {
+      headers: gitHeader(),
+    })
+  );
   const fetch = async () => {
-    await axios
-      .get("http://127.0.0.1:8000/salary/", {
-        headers: gitHeader(),
-      })
-      .then((response) => {
-        setSalaries(response.data);
-      });
+    // await axios
+    //   .get("http://127.0.0.1:8000/salary/", {
+    //     headers: gitHeader(),
+    //   })
+    //   .then((response) => {
+    //     setSalaries(response.data);
+    //   });
   };
   const AddSalary = async () => {
     await axios
@@ -74,15 +81,16 @@ const Salaries = () => {
       })
       .then((res) => {
         console.log(res);
-        fetch();
+        // fetch();
+        refetch();
       })
       .catch((r) => {
         console.log(r);
       });
   };
   useEffect(() => {
-    fetch();
-  }, []);
+    setSalaries(data?.data);
+  }, [data]);
   useEffect(() => {
     console.log(paid);
     // console.log(salaries);
@@ -91,13 +99,15 @@ const Salaries = () => {
   return (
     <>
       <Container>
-        <button
+        <Button
           type="button"
           className="btn btn-primary"
           onClick={() => setIsSalaryOpen(true)}
+          variant="contained"
         >
           add salary
-        </button>
+        </Button>
+
         {salaries?.map((t) => (
           <>
             <SalaryContainer>
@@ -160,13 +170,13 @@ const Salaries = () => {
 
               <Modal.Footer>
                 <Button
-                  variant="secondary"
+                  // variant="secondary"
                   onClick={() => setIsPaidOpen(false)}
                 >
                   Close
                 </Button>
                 <Button
-                  variant="primary"
+                  // variant="primary"
                   onClick={() => {
                     AddPaid();
                     setIsPaidOpen(false);
@@ -221,13 +231,13 @@ const Salaries = () => {
 
               <Modal.Footer>
                 <Button
-                  variant="secondary"
+                  // variant="secondary"
                   onClick={() => setIsSalaryOpen(false)}
                 >
                   Close
                 </Button>
                 <Button
-                  variant="primary"
+                  // variant="primary"
                   onClick={() => {
                     AddSalary();
                     setIsSalaryOpen(false);

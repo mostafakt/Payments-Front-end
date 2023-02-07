@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import "./Login.css";
-import { Container } from "./Login.style";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 export const gitHeader = () => {
+  const token =
+    "Token " +
+    String(localStorage?.getItem("token")).substring(
+      1,
+      String(localStorage.getItem("token")).length - 1
+    );
+  console.log(token);
   return {
-    Authorization: /*"Token " + localStorage.getItem("token")*/ `Token 5578d3bc1838429828f47c5763cca56ec2e36fbe`,
+    Authorization: token,
   };
 };
 const Login = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate( );
+  const { data, isLoading } = useQuery("fetch", () =>
+    axios.post("http://127.0.0.1:8000/api-token-auth/", {
+      username: userName,
+      password: password,
+    })
+  );
+  const navigate = useNavigate();
   const submit = async () => {
     await axios
       .post("http://127.0.0.1:8000/api-token-auth/", {
